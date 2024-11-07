@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>myapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>myapp</name>
+
+    <!-- Java Compiler settings -->
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+    <!-- JUnit 4 Dependency -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+    
+
+    <!-- Profiles -->
+    <profiles>
+    <profile>
+        <id>local</id>
+        <properties>
+            <env>local</env>
+            <db.url>jdbc:mysql://localhost/myapp</db.url>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <!-- Example: Only run certain tests in the local profile -->
+                        <includes>
+                            <include>**/Local*Test.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+
+    <profile>
+        <id>staging</id>
+        <properties>
+            <env>staging</env>
+            <db.url>jdbc:mysql://staging-db.example.com/myapp</db.url>
+        </properties>
+    </profile>
+
+    <profile>
+        <id>production</id>
+        <properties>
+            <env>production</env>
+            <db.url>jdbc:mysql://prod-db.example.com/myapp</db.url>
+        </properties>
+    </profile>
+</profiles>
+
+
+    <!-- Build configuration -->
+    <build>
+        <plugins>
+            <!-- Resources Plugin for filtering and copying resources -->
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering> <!-- Enable resource filtering -->
+                                </resource>
+                            </resources>
+                            <!-- Output directory where filtered resources are copied -->
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>com.example.Main</Main-Class> <!-- Replace with your main class -->
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+        </plugins>
+    </build>
+
+</project>
