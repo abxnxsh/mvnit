@@ -12,10 +12,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
+                    sh "git checkout master"
                     // Checkout the code and ensure it's a branch
-                    checkout scm
-                    // Manually set the branch name using git command
-                    env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    // checkout scm
+                    // // Manually set the branch name using git command
+                    // env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                     echo "Checked out branch: ${env.BRANCH_NAME}"
                 }
             }
