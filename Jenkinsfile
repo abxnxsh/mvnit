@@ -12,10 +12,11 @@ pipeline {
                 script {
                     // Print the branch name to the Jenkins console log
                     echo "Current branch is: ${env.BRANCH_NAME}"
+                    echo "Current branch is: ${env.BRANCH_NAME}"
                 }
             }
         }
-        
+
         stage('Checkout') {
             steps {
                 // Checkout the code from Git
