@@ -11,8 +11,9 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                // Checkout the code from Git
-                checkout scm
+            echo "Checking out branch: ${env.BRANCH_NAME}"
+            sh 'git checkout ${env.BRANCH_NAME}'
+            checkout scm
             }
         }
         stage('Git Info') {
