@@ -15,6 +15,14 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Git Info') {
+    steps {
+        script {
+            sh 'git rev-parse --abbrev-ref HEAD'  // Will show the current branch
+            sh 'git log -1'  // Will show the last commit information
+        }
+    }
+}
         stage('Check Branch') {
             steps {
                 script {
@@ -82,15 +90,8 @@ pipeline {
             }
         }
     }
+
     
-    stage('Git Info') {
-    steps {
-        script {
-            sh 'git rev-parse --abbrev-ref HEAD'  // Will show the current branch
-            sh 'git log -1'  // Will show the last commit information
-        }
-    }
-}
 
     post {
         success {
