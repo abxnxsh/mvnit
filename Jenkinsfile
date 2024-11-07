@@ -16,13 +16,16 @@ pipeline {
             }
         }
         stage('Git Info') {
-    steps {
-        script {
-            sh 'git rev-parse --abbrev-ref HEAD'  // Will show the current branch
-            sh 'git log -1'  // Will show the last commit information
+            steps {
+                script {
+                    // Print out the current branch and Git commit info for debugging purposes
+                    echo "Current branch is: ${env.BRANCH_NAME}"
+                    sh 'git rev-parse --abbrev-ref HEAD'  // Will show the current branch
+                    sh 'git log -1'  // Will show the last commit information
+                }
+            }
         }
-    }
-}
+
         stage('Check Branch') {
             steps {
                 script {
