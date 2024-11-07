@@ -7,6 +7,14 @@ pipeline {
     }
 
     stages {
+
+
+        stage('Checkout') {
+            steps {
+                // Checkout the code from Git
+                checkout scm
+            }
+        }
         stage('Check Branch') {
             steps {
                 script {
@@ -15,13 +23,6 @@ pipeline {
                     echo "Current branch is: ${env.BRANCH_NAME}"
                     echo "Current branch is: ${env.BRANCH_NAME}"
                 }
-            }
-        }
-
-        stage('Checkout') {
-            steps {
-                // Checkout the code from Git
-                checkout scm
             }
         }
 
