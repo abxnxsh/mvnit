@@ -55,7 +55,7 @@ pipeline {
                     // Deploy Docker container to a production environment
                     echo "Deploying to Production"
                     // Run Docker container on a production environment (using port 8080 for production, for example)
-                    sh 'docker run -d -p 8080:8080 ${DOCKER_IMAGE}'
+                    sh 'docker run -d -p 8082:8080 ${DOCKER_IMAGE}'
                 }
             }
         }
