@@ -11,9 +11,13 @@ pipeline {
 
         stage('Checkout') {
             steps {
-            echo "Checking out branch: ${env.BRANCH_NAME}"
-            sh 'git checkout ${env.BRANCH_NAME}'
-            checkout scm
+                script {
+                    // Checkout the code and ensure it's a branch
+                    checkout scm
+                    // Manually set the branch name using git command
+                    env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    echo "Checked out branch: ${env.BRANCH_NAME}"
+                }
             }
         }
         stage('Git Info') {
