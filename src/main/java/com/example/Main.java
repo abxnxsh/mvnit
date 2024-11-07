@@ -23,6 +23,8 @@ public class Main {
             String dbUrl = properties.getProperty("db.url");
             String env = properties.getProperty("env");
 
+            System.out.println("Hola, Senores!");
+
             // Print the values to check if they are loaded correctly
             System.out.println("App Name: " + appName);
             System.out.println("DB URL: " + dbUrl);
